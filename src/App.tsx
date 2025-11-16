@@ -5,6 +5,7 @@ import HomePage from './components/HomePage';
 import ProfilePage from './components/ProfilePage';
 import Footer from './components/Footer';
 import { familyMembers } from './data/familyMembers';
+import { GRADIENTS, FONTS } from './constants/theme';
 import './App.css';
 
 const WinterWonderlandCard: React.FC = () => {
@@ -23,10 +24,10 @@ const WinterWonderlandCard: React.FC = () => {
 
   return (
     <div style={{
-      background: 'linear-gradient(180deg, #E8F4F8 0%, #FFFFFF 50%, #F0F8FF 100%)',
+      background: GRADIENTS.background,
       minHeight: '100vh',
       padding: '0',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+      fontFamily: FONTS.family,
       position: 'relative',
       overflow: 'hidden'
     }}>

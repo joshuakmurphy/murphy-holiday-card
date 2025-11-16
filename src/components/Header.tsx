@@ -1,12 +1,14 @@
+import { COLORS, GRADIENTS, FONTS, RADIUS } from '../constants/theme';
+
 const Header: React.FC = () => {
   return (
-    <div style={{
+    <header style={{
       padding: '80px 40px 60px',
       textAlign: 'center',
       position: 'relative'
     }}>
       {/* Decorative snowflakes around title */}
-      <div style={{
+      <div aria-hidden="true" style={{
         position: 'absolute',
         top: '40px',
         left: '50%',
@@ -19,9 +21,9 @@ const Header: React.FC = () => {
       </div>
 
       <h1 style={{
-        fontSize: '64px',
-        fontWeight: '300',
-        color: '#2C5F7C',
+        fontSize: FONTS.size['6xl'],
+        fontWeight: FONTS.weight.light,
+        color: COLORS.textPrimary,
         margin: '0 0 10px 0',
         letterSpacing: '8px',
         textTransform: 'uppercase',
@@ -33,15 +35,15 @@ const Header: React.FC = () => {
       <div style={{
         display: 'inline-block',
         padding: '15px 40px',
-        background: 'linear-gradient(135deg, rgba(74, 144, 226, 0.1) 0%, rgba(155, 89, 182, 0.1) 100%)',
-        borderRadius: '50px',
+        background: GRADIENTS.nameTag,
+        borderRadius: RADIUS.xl,
         marginBottom: '20px',
         border: '2px solid rgba(74, 144, 226, 0.2)'
       }}>
         <h2 style={{
-          fontSize: '32px',
-          fontWeight: '600',
-          background: 'linear-gradient(135deg, #4A90E2 0%, #9B59B6 100%)',
+          fontSize: FONTS.size['3xl'],
+          fontWeight: FONTS.weight.semibold,
+          background: GRADIENTS.nameTagText,
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           margin: '0',
@@ -52,25 +54,25 @@ const Header: React.FC = () => {
       </div>
 
       <p style={{
-        fontSize: '18px',
-        color: '#5A7C8F',
+        fontSize: FONTS.size.base,
+        color: COLORS.textSecondary,
         lineHeight: '1.8',
         maxWidth: '600px',
         margin: '20px auto 0',
-        fontWeight: '300'
+        fontWeight: FONTS.weight.light
       }}>
         Celebrating a magical year of love, laughter, and unforgettable moments
       </p>
 
-      <div style={{
+      <div aria-hidden="true" style={{
         marginTop: '30px',
-        fontSize: '24px',
+        fontSize: FONTS.size.xl,
         letterSpacing: '10px',
         opacity: '0.3'
       }}>
         ❄️ ❄️ ❄️
       </div>
-    </div>
+    </header>
   );
 };
 
