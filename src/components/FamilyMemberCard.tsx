@@ -1,4 +1,5 @@
 import { FamilyMember } from '../types';
+import { COLORS, FONTS, getMemberGradient, getShadowWithColor, SHADOWS } from '../constants/theme';
 
 interface FamilyMemberCardProps {
   member: FamilyMember;
@@ -7,24 +8,23 @@ interface FamilyMemberCardProps {
 
 const FamilyMemberCard: React.FC<FamilyMemberCardProps> = ({ member, onClick }) => {
   return (
-    <div
+    <button
       onClick={() => onClick(member)}
+      aria-label={`Read ${member.fullName}'s story`}
+      className="family-member-card"
       style={{
         textAlign: 'center',
+        position: 'relative',
+        background: 'none',
+        border: 'none',
+        padding: 0,
         cursor: 'pointer',
-        transition: 'transform 0.3s ease',
-        position: 'relative'
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-10px)';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'translateY(0)';
+        width: '100%',
       }}
     >
       {/* Snowflake decoration above */}
-      <div style={{
-        fontSize: '24px',
+      <div aria-hidden="true" style={{
+        fontSize: FONTS.size.xl,
         marginBottom: '10px',
         opacity: '0.4'
       }}>
@@ -36,19 +36,21 @@ const FamilyMemberCard: React.FC<FamilyMemberCardProps> = ({ member, onClick }) 
         height: '140px',
         margin: '0 auto 20px',
         borderRadius: '50%',
-        background: `linear-gradient(135deg, ${member.color} 0%, ${member.color}dd 100%)`,
+        background: getMemberGradient(member.color),
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         fontSize: '64px',
-        boxShadow: `0 15px 35px ${member.color}40`,
-        border: '4px solid #fff',
+        boxShadow: getShadowWithColor(SHADOWS.card, member.color),
+        border: `4px solid ${COLORS.white}`,
         position: 'relative'
       }}>
-        {member.emoji}
+        <span role="img" aria-label={member.emoji}>
+          {member.emoji}
+        </span>
 
         {/* Sparkle effect */}
-        <div style={{
+        <div aria-hidden="true" style={{
           position: 'absolute',
           top: '10px',
           right: '10px',
@@ -60,21 +62,21 @@ const FamilyMemberCard: React.FC<FamilyMemberCardProps> = ({ member, onClick }) 
       </div>
 
       <h4 style={{
-        fontSize: '22px',
-        fontWeight: '600',
-        color: '#2C5F7C',
+        fontSize: FONTS.size.lg,
+        fontWeight: FONTS.weight.semibold,
+        color: COLORS.textPrimary,
         marginBottom: '5px'
       }}>
         {member.name}
       </h4>
       <p style={{
-        fontSize: '14px',
-        color: '#7A99AC',
+        fontSize: FONTS.size.xs,
+        color: COLORS.textTertiary,
         margin: '0'
       }}>
         {member.title}
       </p>
-    </div>
+    </button>
   );
 };
 

@@ -1,4 +1,5 @@
 import { FamilyMember } from '../types';
+import { COLORS, GRADIENTS, FONTS, RADIUS, SHADOWS, SPACING, getMemberGradient } from '../constants/theme';
 
 interface ProfilePageProps {
   member: FamilyMember;
@@ -9,34 +10,36 @@ interface ProfilePageProps {
 
 const ProfilePage: React.FC<ProfilePageProps> = ({ member, allMembers, onBack, onMemberClick }) => {
   return (
-    <div style={{
-      padding: '40px',
+    <article style={{
+      padding: SPACING.lg,
       minHeight: '100vh'
     }}>
       <button
         onClick={onBack}
+        aria-label="Back to home page"
+        className="back-button"
         style={{
-          fontSize: '14px',
-          color: '#4A90E2',
+          fontSize: FONTS.size.xs,
+          color: COLORS.lightBlue,
           background: 'none',
           border: 'none',
           cursor: 'pointer',
-          fontWeight: '600',
-          marginBottom: '40px',
+          fontWeight: FONTS.weight.semibold,
+          marginBottom: SPACING.lg,
           display: 'flex',
           alignItems: 'center',
-          gap: '5px'
+          gap: SPACING.xs
         }}
       >
         ← Back to Home
       </button>
 
-      <div style={{
+      <header style={{
         textAlign: 'center',
         marginBottom: '50px'
       }}>
-        <div style={{
-          fontSize: '32px',
+        <div aria-hidden="true" style={{
+          fontSize: FONTS.size['3xl'],
           marginBottom: '15px',
           opacity: '0.4'
         }}>
@@ -48,21 +51,23 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ member, allMembers, onBack, o
           height: '160px',
           margin: '0 auto 25px',
           borderRadius: '50%',
-          background: `linear-gradient(135deg, ${member.color} 0%, ${member.color}dd 100%)`,
+          background: getMemberGradient(member.color),
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           fontSize: '80px',
           boxShadow: `0 20px 50px ${member.color}40`,
-          border: '5px solid #fff',
+          border: `5px solid ${COLORS.white}`,
           position: 'relative'
         }}>
-          {member.emoji}
-          <div style={{
+          <span role="img" aria-label={member.emoji}>
+            {member.emoji}
+          </span>
+          <div aria-hidden="true" style={{
             position: 'absolute',
             top: '15px',
             right: '15px',
-            fontSize: '24px',
+            fontSize: FONTS.size.xl,
             animation: 'shimmer 2s infinite'
           }}>
             ✨
@@ -70,54 +75,60 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ member, allMembers, onBack, o
         </div>
 
         <h2 style={{
-          fontSize: '42px',
-          fontWeight: '600',
-          color: '#2C5F7C',
+          fontSize: FONTS.size['5xl'],
+          fontWeight: FONTS.weight.semibold,
+          color: COLORS.textPrimary,
           margin: '0 0 10px 0'
         }}>
           {member.fullName}
         </h2>
         <p style={{
-          fontSize: '18px',
-          color: '#7A99AC',
+          fontSize: FONTS.size.base,
+          color: COLORS.textTertiary,
           margin: '0'
         }}>
           {member.title}
         </p>
-      </div>
+      </header>
 
       <div style={{
         maxWidth: '700px',
         margin: '0 auto'
       }}>
         <p style={{
-          fontSize: '18px',
+          fontSize: FONTS.size.base,
           lineHeight: '1.8',
-          color: '#5A7C8F',
-          marginBottom: '40px',
+          color: COLORS.textSecondary,
+          marginBottom: SPACING.lg,
           textAlign: 'center',
-          fontWeight: '300'
+          fontWeight: FONTS.weight.light
         }}>
           {member.story}
         </p>
 
-        <div style={{
-          background: 'linear-gradient(135deg, rgba(74, 144, 226, 0.05) 0%, rgba(155, 89, 182, 0.05) 100%)',
-          padding: '35px',
-          borderRadius: '16px',
-          marginBottom: '35px',
-          border: '2px solid rgba(74, 144, 226, 0.1)'
-        }}>
-          <h4 style={{
-            fontSize: '22px',
-            fontWeight: '600',
-            color: member.color,
-            marginBottom: '20px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px'
-          }}>
-            <span>❄️</span>
+        <section
+          aria-labelledby={`${member.id}-highlights`}
+          style={{
+            background: GRADIENTS.highlightsBox,
+            padding: '35px',
+            borderRadius: RADIUS.sm,
+            marginBottom: '35px',
+            border: '2px solid rgba(74, 144, 226, 0.1)'
+          }}
+        >
+          <h4
+            id={`${member.id}-highlights`}
+            style={{
+              fontSize: FONTS.size.lg,
+              fontWeight: FONTS.weight.semibold,
+              color: member.color,
+              marginBottom: SPACING.md,
+              display: 'flex',
+              alignItems: 'center',
+              gap: SPACING.sm
+            }}
+          >
+            <span aria-hidden="true">❄️</span>
             2025 Highlights
           </h4>
           <ul style={{
@@ -127,14 +138,14 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ member, allMembers, onBack, o
           }}>
             {member.highlights.map((highlight, idx) => (
               <li key={idx} style={{
-                fontSize: '16px',
+                fontSize: FONTS.size.sm,
                 lineHeight: '1.8',
-                color: '#5A7C8F',
+                color: COLORS.textSecondary,
                 marginBottom: '14px',
                 paddingLeft: '30px',
                 position: 'relative'
               }}>
-                <span style={{
+                <span aria-hidden="true" style={{
                   position: 'absolute',
                   left: '0',
                   color: member.color,
@@ -144,34 +155,35 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ member, allMembers, onBack, o
               </li>
             ))}
           </ul>
-        </div>
+        </section>
 
-        <div style={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          padding: '40px',
-          borderRadius: '16px',
+        <blockquote style={{
+          background: GRADIENTS.quote,
+          padding: SPACING.lg,
+          borderRadius: RADIUS.sm,
           textAlign: 'center',
           marginBottom: '50px',
-          boxShadow: '0 15px 40px rgba(102, 126, 234, 0.2)'
+          boxShadow: SHADOWS.quote,
+          margin: '0 0 50px 0'
         }}>
           <p style={{
-            fontSize: '24px',
+            fontSize: FONTS.size.xl,
             fontStyle: 'italic',
-            color: '#fff',
+            color: COLORS.white,
             margin: '0',
-            fontWeight: '300'
+            fontWeight: FONTS.weight.light
           }}>
             "{member.quote}"
           </p>
-        </div>
+        </blockquote>
 
-        <div style={{
+        <nav aria-label="Other family member stories" style={{
           textAlign: 'center'
         }}>
           <h4 style={{
-            fontSize: '20px',
-            fontWeight: '600',
-            color: '#2C5F7C',
+            fontSize: FONTS.size.md,
+            fontWeight: FONTS.weight.semibold,
+            color: COLORS.textPrimary,
             marginBottom: '25px'
           }}>
             Read more family stories
@@ -188,34 +200,29 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ member, allMembers, onBack, o
                 <button
                   key={otherMember.id}
                   onClick={() => onMemberClick(otherMember)}
+                  aria-label={`Read ${otherMember.fullName}'s story`}
+                  className="member-nav-button"
+                  data-color={otherMember.color}
                   style={{
-                    fontSize: '14px',
+                    fontSize: FONTS.size.xs,
                     color: otherMember.color,
                     padding: '12px 24px',
                     border: `2px solid ${otherMember.color}`,
-                    backgroundColor: '#fff',
+                    backgroundColor: COLORS.white,
                     cursor: 'pointer',
-                    fontWeight: '600',
-                    borderRadius: '30px',
-                    transition: 'all 0.3s ease',
-                    boxShadow: `0 4px 12px ${otherMember.color}20`
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = otherMember.color;
-                    e.currentTarget.style.color = '#fff';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#fff';
-                    e.currentTarget.style.color = otherMember.color;
+                    fontWeight: FONTS.weight.semibold,
+                    borderRadius: RADIUS.lg,
+                    boxShadow: `${SHADOWS.button} ${otherMember.color}20`,
+                    ['--member-color' as string]: otherMember.color,
                   }}
                 >
                   {otherMember.name}
                 </button>
               ))}
           </div>
-        </div>
+        </nav>
       </div>
-    </div>
+    </article>
   );
 };
 
